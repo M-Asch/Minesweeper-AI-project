@@ -143,7 +143,7 @@ def prepareWindow():
         for y in range(0, cols):
             b = tkinter.Button(window, text=" ", width=2, command=lambda x=x,y=y: clickOn(x,y))
             print(board)
-            b.bind("<Button-3>", lambda e, x=x, y=y:onRightClick(x, y))
+            b.bind("<Button-2>", lambda e, x=x, y=y:onRightClick(x, y))
             b.grid(row=x+1, column=y, sticky=tkinter.N+tkinter.W+tkinter.S+tkinter.E)
             buttons[x].append(b)
 
