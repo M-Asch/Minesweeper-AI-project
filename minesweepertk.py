@@ -138,25 +138,21 @@ def prepareGame():
 def prepareWindow():
     global rows, cols, buttons, bbutton
     tkinter.Button(window, text="Restart", command=restartGame).grid(row=0, column=0, columnspan=cols, sticky=tkinter.N+tkinter.W+tkinter.S+tkinter.E)
-    bbutton = tkinter.Button(window, text="Bombs= "+str(current_mines))
-    bbutton.place(x=1200,y=20)
+    bbutton = tkinter.Button(window, text="Bombs= " + str(40))
+    bbutton.place(x=500,y=20)
     buttons = []
     for x in range(0, rows):
         buttons.append([])
         for y in range(0, cols):
             b = tkinter.Button(window, text=" ", width=2, command=lambda x=x,y=y: clickOn(x,y))
             print(board)
-            b.bind("<Button-2>", lambda e, x=x, y=y:onRightClick(x, y))
+            b.bind("<Button-3>", lambda e, x=x, y=y:onRightClick(x, y))
             b.grid(row=x+1, column=y, sticky=tkinter.N+tkinter.W+tkinter.S+tkinter.E)
             buttons[x].append(b)
 
 def restartGame():
     global gameover, boards, choices
     gameover = False
-    fileB.write(json.dumps(boards) + "\n \n")
-    fileC.write(json.dumps(choices) + "\n \n")
-    boards = []
-    choices = []
     #destroy all - prevent memory leak
     for x in window.winfo_children():
         if type(x) != tkinter.Menu:
@@ -171,10 +167,6 @@ def clickOn(x,y):
         return
     buttons[x][y]["text"] = str(field[x][y])
     if field[x][y] == -1:
-        fileB.write(json.dumps(boards) + "\n \n")
-        fileC.write(json.dumps(choices) + "\n \n")
-        boards = []
-        choices = []
         buttons[x][y]["text"] = "*"
         buttons[x][y].config(background='red', disabledforeground='black')
         gameover = True
@@ -187,8 +179,7 @@ def clickOn(x,y):
     else:
         buttons[x][y].config(disabledforeground=colors[field[x][y]])
         board[x][y] = field[x][y]
-        boards.append(board)
-        choices.append([x, y])
+        fileB.write(json.dumps(board) + ":" + json.dumps([x,y]) + "\n \n")
     if field[x][y] == 0:
         buttons[x][y]["text"] = " "
         #now repeat for all buttons nearby which are 0... kek
@@ -240,23 +231,19 @@ def onRightClick(x, y):
         board[x][y] = -9999
         current_mines +=1
         bbutton = tkinter.Button(window, text="Bombs= "+str(current_mines))
-        bbutton.place(x=1200,y=20)
-        boards.append(board)
-        choices.append([x, y])
+        bbutton.place(x=500,y=20)
+        fileB.write(json.dumps(board) + ":" + json.dumps([x,y]) + "\n \n")
     elif buttons[x][y]["text"] == " " and buttons[x][y]["state"] == "normal":
         board[x][y] = 9999
         current_mines -= 1
         bbutton = tkinter.Button(window, text="Bombs= "+str(current_mines))
-        bbutton.place(x=1200,y=20)
-        boards.append(board)
-        choices.append([x, y])
+        bbutton.place(x=500,y=20)
+        fileB.write(json.dumps(board) + ":" + json.dumps([x,y]) + "\n \n")
         buttons[x][y]["text"] = "?"
         buttons[x][y]["state"] = "disabled"
 
 def checkWin():
     global buttons, field, rows, cols, boards, choices
-    fileB.write(json.dumps(boards) + "\n \n")
-    fileC.write(json.dumps(choices) + "\n \n")
     win = True
     for x in range(0, rows):
         for y in range(0, cols):
@@ -275,3 +262,5 @@ createMenu()
 prepareWindow()
 prepareGame()
 window.mainloop()
+fileB.close()
+fileC.close()
