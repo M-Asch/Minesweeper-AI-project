@@ -136,7 +136,7 @@ def prepareGame():
                     field[x+1][y+1] = int(field[x+1][y+1]) + 1
 
 def prepareWindow():
-    global rows, cols, buttons, bbutton
+    global rows, cols, buttons, bbutton, current_mines
     tkinter.Button(window, text="Restart", command=restartGame).grid(row=0, column=0, columnspan=cols, sticky=tkinter.N+tkinter.W+tkinter.S+tkinter.E)
     bbutton = tkinter.Button(window, text="Bombs= " + str(40))
     current_mines = 40
