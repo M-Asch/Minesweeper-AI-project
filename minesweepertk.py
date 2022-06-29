@@ -139,6 +139,7 @@ def prepareWindow():
     global rows, cols, buttons, bbutton
     tkinter.Button(window, text="Restart", command=restartGame).grid(row=0, column=0, columnspan=cols, sticky=tkinter.N+tkinter.W+tkinter.S+tkinter.E)
     bbutton = tkinter.Button(window, text="Bombs= " + str(40))
+    current_mines = 40
     bbutton.place(x=500,y=20)
     buttons = []
     for x in range(0, rows):
