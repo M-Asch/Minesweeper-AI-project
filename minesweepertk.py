@@ -15,7 +15,7 @@ window.title("Minesweeper")
 rows = 10
 cols = 10
 mines = 10
-current_mines=mines
+current_mines=40
 field = []
 buttons = []
 
@@ -139,14 +139,14 @@ def prepareWindow():
     global rows, cols, buttons, bbutton
     tkinter.Button(window, text="Restart", command=restartGame).grid(row=0, column=0, columnspan=cols, sticky=tkinter.N+tkinter.W+tkinter.S+tkinter.E)
     bbutton = tkinter.Button(window, text="Bombs= "+str(current_mines))
-    bbutton.place(x=500,y=20)
+    bbutton.place(x=1200,y=20)
     buttons = []
     for x in range(0, rows):
         buttons.append([])
         for y in range(0, cols):
             b = tkinter.Button(window, text=" ", width=2, command=lambda x=x,y=y: clickOn(x,y))
             print(board)
-            b.bind("<Button-3>", lambda e, x=x, y=y:onRightClick(x, y))
+            b.bind("<Button-2>", lambda e, x=x, y=y:onRightClick(x, y))
             b.grid(row=x+1, column=y, sticky=tkinter.N+tkinter.W+tkinter.S+tkinter.E)
             buttons[x].append(b)
 
@@ -240,21 +240,23 @@ def onRightClick(x, y):
         board[x][y] = -9999
         current_mines +=1
         bbutton = tkinter.Button(window, text="Bombs= "+str(current_mines))
-        bbutton.place(x=500,y=20)
+        bbutton.place(x=1200,y=20)
         boards.append(board)
         choices.append([x, y])
     elif buttons[x][y]["text"] == " " and buttons[x][y]["state"] == "normal":
         board[x][y] = 9999
         current_mines -= 1
         bbutton = tkinter.Button(window, text="Bombs= "+str(current_mines))
-        bbutton.place(x=500,y=20)
+        bbutton.place(x=1200,y=20)
         boards.append(board)
         choices.append([x, y])
         buttons[x][y]["text"] = "?"
         buttons[x][y]["state"] = "disabled"
 
 def checkWin():
-    global buttons, field, rows, cols
+    global buttons, field, rows, cols, boards, choices
+    fileB.write(json.dumps(boards) + "\n \n")
+    fileC.write(json.dumps(choices) + "\n \n")
     win = True
     for x in range(0, rows):
         for y in range(0, cols):
