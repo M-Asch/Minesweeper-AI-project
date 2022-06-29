@@ -14,7 +14,7 @@ window.title("Minesweeper")
 rows = 10
 cols = 10
 mines = 10
-
+current_mines=mines
 field = []
 buttons = []
 
@@ -135,8 +135,10 @@ def prepareGame():
                     field[x+1][y+1] = int(field[x+1][y+1]) + 1
 
 def prepareWindow():
-    global rows, cols, buttons
+    global rows, cols, buttons, bbutton
     tkinter.Button(window, text="Restart", command=restartGame).grid(row=0, column=0, columnspan=cols, sticky=tkinter.N+tkinter.W+tkinter.S+tkinter.E)
+    bbutton = tkinter.Button(window, text="Bombs= "+str(current_mines))
+    bbutton.place(x=500,y=20)
     buttons = []
     for x in range(0, rows):
         buttons.append([])
@@ -217,18 +219,25 @@ def autoClickOn(x,y):
         if x != rows-1 and y != cols-1:
             autoClickOn(x+1,y+1)
 
-def onRightClick(x,y):
+def onRightClick(x, y):
     global buttons
+    global current_mines
     if gameover:
         return
     if buttons[x][y]["text"] == "?":
         buttons[x][y]["text"] = " "
         buttons[x][y]["state"] = "normal"
         board[x][y] = -9999
+        current_mines +=1
+        bbutton = tkinter.Button(window, text="Bombs= "+str(current_mines))
+        bbutton.place(x=500,y=20)
         fileB.write(json.dumps(board) + "\n \n")
         fileC.write(json.dumps([x, y]) + "\n \n")
     elif buttons[x][y]["text"] == " " and buttons[x][y]["state"] == "normal":
         board[x][y] = 9999
+        current_mines -= 1
+        bbutton = tkinter.Button(window, text="Bombs= "+str(current_mines))
+        bbutton.place(x=500,y=20)
         fileB.write(json.dumps(board) + "\n \n")
         fileC.write(json.dumps([x, y]) + "\n \n")
         buttons[x][y]["text"] = "?"
