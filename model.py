@@ -52,11 +52,12 @@ model.add(Dense(400, activation='softmax'))
 
 model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=['accuracy', TopKCategoricalAccuracy(k=5, name='top_k_categorical_accuracy')])
 model.summary()
+#model.save("//saves")
 
 #Print History for the model in the graph
 history = model.fit(train_x, train_y, validation_data=(test_x, test_y), epochs=100, batch_size=128)
 plt.plot(history.history['accuracy'], label='Accuracy')
 plt.plot(history.history['val_accuracy'], label='Test Accuracy')
-plt.plot(history.history['top_k_categorical_accuracy'], label='Top K Accuracy')
+plt.plot(history.history['top_k_categorical_accuracy'], label='Top 5 Accuracy')
 plt.legend()
 plt.show()

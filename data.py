@@ -21,7 +21,7 @@ def cleanData(file):
                         b[row][col] = -2
             boards.append(b)
         count += 1
-        print("cleaning line: ", count, "\n")
+        #print("cleaning line: ", count, "\n")
     #outFile.write(json.dumps(boards))
     return boards, choices
 
