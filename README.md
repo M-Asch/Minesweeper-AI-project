@@ -19,9 +19,9 @@ As the model is training it will show the training/testing loss and accuracy alo
 
 Two types of images can be printed out. The first is a heatmap which shows what the network was seeing as its input where the color of the tile represents the confidence the network has that it is a safe choice. 
 
-![Heatmap Ex. 1](..\screenshots\Figure_1.png)
+![Heatmap Ex. 1](\screenshots\Figure_1.png)
 
-![Heatmap Ex. 2](..\screenshots\Figure_2.png)
+![Heatmap Ex. 2](\screenshots\Figure_2.png)
 
 A graph plotting the testing and training accuracy along with the 'top_k_categorical_accuracy' can also be produced. Note that training accuracy and testing accuracy will be much lower then 'top_k_categorical_accuracy'. 
 
