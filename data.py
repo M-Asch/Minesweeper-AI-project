@@ -1,7 +1,9 @@
 import json
 file = open("boards.json", "r")
+#outFile = open("cleanedData", "w")
 
 def cleanData(file):
+    #outFile = open("cleanedData", "w")
     boards = []
     choices = []
     count = 1
@@ -19,6 +21,8 @@ def cleanData(file):
                         b[row][col] = -5
             boards.append(b)
         count += 1
+        print("cleaning line: ", count, "\n")
+    #outFile.write(json.dumps(boards))
     return boards, choices
 
 def findFlags(boards, choices):
