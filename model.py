@@ -56,6 +56,15 @@ model.summary()
 
 #Print History for the model in the graph
 history = model.fit(train_x, train_y, validation_data=(test_x, test_y), epochs=100, batch_size=128)
+for l in range(10, 35, 1):
+    pred = model.predict(train_x[l].reshape(1, 400))
+    plt.imshow(pred.reshape(20,20))
+    for i in range(20):
+        for j in range(20):
+            text = plt.text(j, i, train_x[l].reshape(20, 20)[i][j], ha="center", va="center", color="white")
+    plt.colorbar()
+    plt.show()
+
 plt.plot(history.history['accuracy'], label='Accuracy')
 plt.plot(history.history['val_accuracy'], label='Test Accuracy')
 plt.plot(history.history['top_k_categorical_accuracy'], label='Top 5 Accuracy')
