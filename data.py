@@ -27,19 +27,31 @@ def cleanData(file):
 
 def findFlags(boards, choices):
     outputs = []
+    noflagBoard = []
     for c in range(len(choices) - 1):
         coords = choices[c]
-        if boards[c+1][coords[0]][coords[1]] == -10:
+        if boards[c+1][coords[0]][coords[1]] == -2:
             #print("on board ", c, " we flagged spot ", coords, " which is equal to spot: ", 400 + 20*coords[0] + coords[1], "\n")
-            outputs.append(400 + 20*coords[0] + coords[1])
-        elif boards[c+1][coords[0]][coords[1]] == -1 and boards[c][coords[0]][coords[1]] == -2:
+            #outputs.append(400 + 20*coords[0] + coords[1])
+            boards[c+1][coords[0]][coords[1]] = -1
+        #elif boards[c+1][coords[0]][coords[1]] == -1 and boards[c][coords[0]][coords[1]] == -2:
             #print("on board ", c, " we unflagged spot ", coords, " which is equal to spot: ", 800 + 20*coords[0] + coords[1], "\n")
-            outputs.append(800 + 20*coords[0] + coords[1])
+            #outputs.append(800 + 20*coords[0] + coords[1])
+            #continue
         else:
             #print("on board ", c, " we clicked spot ", coords, " which is equal to spot: ", 20*coords[0] + coords[1], "\n" "\n")
             outputs.append(20*coords[0] + coords[1])
+            noflagBoard.append(boards[c])
 
-    return(outputs)
+    print(len(noflagBoard), len(outputs))
+    return(outputs, noflagBoard)
+
+def setOutputs(boards, choices):
+    outputs = []
+    for out in choices:
+        outputs.append(20*out[0] + out[1])
+    #print(outputs)
+    return outputs
 
 #boa is a list of boards where each board is a 2D matrix row*col
 #cho is a list of the choices made
