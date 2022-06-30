@@ -2,8 +2,7 @@ import tkinter, configparser, random, os, tkinter.messagebox, tkinter.simpledial
 
 window = tkinter.Tk()
 
-fileB = open("boards.json", "a")
-fileC = open("choice.json", "a")
+fileB = open("noFlags.json", "a")
 boards = []
 board = []
 choices = []
@@ -229,17 +228,13 @@ def onRightClick(x, y):
     if buttons[x][y]["text"] == "?":
         buttons[x][y]["text"] = " "
         buttons[x][y]["state"] = "normal"
-        board[x][y] = -9999
         current_mines +=1
         bbutton = tkinter.Button(window, text="Bombs= "+str(current_mines))
         bbutton.place(x=500,y=20)
-        fileB.write(json.dumps(board) + ":" + json.dumps([x,y]) + "\n \n")
     elif buttons[x][y]["text"] == " " and buttons[x][y]["state"] == "normal":
-        board[x][y] = 9999
         current_mines -= 1
         bbutton = tkinter.Button(window, text="Bombs= "+str(current_mines))
         bbutton.place(x=500,y=20)
-        fileB.write(json.dumps(board) + ":" + json.dumps([x,y]) + "\n \n")
         buttons[x][y]["text"] = "?"
         buttons[x][y]["state"] = "disabled"
 

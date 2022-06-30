@@ -16,9 +16,9 @@ def cleanData(file):
             for row in range(len(b)):
                 for col in range(len(b[row])):
                     if b[row][col] == -9999:
-                        b[row][col] = -10
+                        b[row][col] = -1
                     elif b[row][col] == 9999:
-                        b[row][col] = -5
+                        b[row][col] = -2
             boards.append(b)
         count += 1
         print("cleaning line: ", count, "\n")
@@ -32,7 +32,7 @@ def findFlags(boards, choices):
         if boards[c+1][coords[0]][coords[1]] == -10:
             #print("on board ", c, " we flagged spot ", coords, " which is equal to spot: ", 400 + 20*coords[0] + coords[1], "\n")
             outputs.append(400 + 20*coords[0] + coords[1])
-        elif boards[c+1][coords[0]][coords[1]] == -10 and boards[c][coords[0]][coords[1]] == -5:
+        elif boards[c+1][coords[0]][coords[1]] == -1 and boards[c][coords[0]][coords[1]] == -2:
             #print("on board ", c, " we unflagged spot ", coords, " which is equal to spot: ", 800 + 20*coords[0] + coords[1], "\n")
             outputs.append(800 + 20*coords[0] + coords[1])
         else:

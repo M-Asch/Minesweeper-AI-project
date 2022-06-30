@@ -1,6 +1,6 @@
 from tensorflow import keras
 from keras.models import Sequential
-from keras.layers import Dense, Activation
+from keras.layers import Dense, Activation, Dropout
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -22,6 +22,7 @@ y = findFlags(boards, choices)
 #         counts["800-1200"] += 1
 boards = boards[:-1]
 
+print(boards[0], y[0])
 
 x = []
 count = 0
@@ -45,19 +46,20 @@ train_y = y[:int(size*.8)]
 test_y = y[int(size*.8 + 1):]
 
 model = Sequential()
-model.add(Dense(400, input_dim=400, activation ='relu'))
+model.add(Dense(800, input_dim=400, activation ='relu'))
 #model.add(Dense(1050, activation ='relu'))
 #model.add(Dense(1100, activation ='relu'))
+#model.add(Dropout(.2))
 model.add(Dense(1200, activation='softmax'))
 
-model.compile(optimizer='sgd', loss='categorical_crossentropy', metrics=['accuracy'])
+model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
 model.summary()
 
-history =model.fit(train_x, train_y, epochs=50, batch_size=100)
-score = model.evaluate(test_x, test_y, batch_size=100)
-print(score[0], score[1])
+history = model.fit(train_x, train_y, validation_data=(test_x, test_y), epochs=50, batch_size=100)
+#score = model.evaluate(test_x, test_y, batch_size=100)
+#print(score[0], score[1])
 plt.plot(history.history['accuracy'], label='train')
 plt.plot(history.history['val_accuracy'], label='test')
-pt.legend()
+plt.legend()
 plt.show()
