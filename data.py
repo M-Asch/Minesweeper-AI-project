@@ -11,6 +11,12 @@ def cleanData(file):
             c = json.loads(line.split(":")[-1])
             if c != " ":
                 choices.append(c)
+            for row in range(len(b)):
+                for col in range(len(b[row])):
+                    if b[row][col] == -9999:
+                        b[row][col] = -10
+                    elif b[row][col] == 9999:
+                        b[row][col] = -5
             boards.append(b)
         count += 1
     return boards, choices
@@ -19,10 +25,10 @@ def findFlags(boards, choices):
     outputs = []
     for c in range(len(choices) - 1):
         coords = choices[c]
-        if boards[c+1][coords[0]][coords[1]] == 9999:
+        if boards[c+1][coords[0]][coords[1]] == -10:
             #print("on board ", c, " we flagged spot ", coords, " which is equal to spot: ", 400 + 20*coords[0] + coords[1], "\n")
             outputs.append(400 + 20*coords[0] + coords[1])
-        elif boards[c+1][coords[0]][coords[1]] == -9999 and boards[c][coords[0]][coords[1]] == 9999:
+        elif boards[c+1][coords[0]][coords[1]] == -10 and boards[c][coords[0]][coords[1]] == -5:
             #print("on board ", c, " we unflagged spot ", coords, " which is equal to spot: ", 800 + 20*coords[0] + coords[1], "\n")
             outputs.append(800 + 20*coords[0] + coords[1])
         else:
