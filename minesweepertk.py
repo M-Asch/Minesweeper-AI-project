@@ -1,11 +1,18 @@
+#=======================================================
+# Written By: vakus (https://codereview.stackexchange.com/questions/191550/minesweeper-in-python-tkinter)
+# Modified By: Ryan Erickson, Manas Panachavati, Mitchell Aschmeyer
+# data.py
+# June 2022
+# This minesweeper game was coded by vakus and was modified for data collection for the bot
+#======================================================
+
+
 import tkinter, configparser, random, os, tkinter.messagebox, tkinter.simpledialog, json
 
 window = tkinter.Tk()
 
 fileB = open("noFlags.json", "a")
-boards = []
 board = []
-choices = []
 
 window.title("Minesweeper")
 
