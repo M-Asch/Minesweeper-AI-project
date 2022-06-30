@@ -54,6 +54,10 @@ model.compile(optimizer='sgd', loss='categorical_crossentropy', metrics=['accura
 
 model.summary()
 
-model.fit(train_x, train_y, epochs=50, batch_size=100)
+history =model.fit(train_x, train_y, epochs=50, batch_size=100)
 score = model.evaluate(test_x, test_y, batch_size=100)
 print(score[0], score[1])
+plt.plot(history.history['accuracy'], label='train')
+plt.plot(history.history['val_accuracy'], label='test')
+pt.legend()
+plt.show()
