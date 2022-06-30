@@ -17,12 +17,6 @@ Once data has been collected simply open the files for the data and run them thr
 
 As the model is training it will show the training/testing loss and accuracy along with the 'top_k_categorical_accuracy' which provides a more accurate measurment of success as the move made in testing is not the only possible move. 
 
-Two types of images can be printed out. The first is a heatmap which shows what the network was seeing as its input where the color of the tile represents the confidence the network has that it is a safe choice. 
-
-![Heatmap Ex. 1](\screenshots\Figure_1.png)
-
-![Heatmap Ex. 2](\screenshots\Figure_2.png)
+Two types of images can be printed out. The first is a heatmap which shows what the network was seeing as its input where the color of the tile represents the confidence the network has that it is a safe choice. Examples are stored in the *screenshots* folder. 
 
 A graph plotting the testing and training accuracy along with the 'top_k_categorical_accuracy' can also be produced. Note that training accuracy and testing accuracy will be much lower then 'top_k_categorical_accuracy'. 
-
-![Heatmap Ex. 2](..\screenshots\Results.png)
