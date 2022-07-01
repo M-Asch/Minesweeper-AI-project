@@ -81,7 +81,7 @@ def prepData(file1, file2="NONE"):
     for board in boards:
         rows = []
         for row in board:
-            rows = rows + row   #combine all rows for 1 board into a single (400, 1) array
+            rows = rows + row   #combine all rows for 1 board into a single (1, 400) array
         x.append(rows)
     x = np.array(x) #update to numpy array for keras
     y = np.array(y)
